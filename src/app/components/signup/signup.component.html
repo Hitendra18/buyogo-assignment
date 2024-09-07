@@ -1,0 +1,228 @@
+<div
+  class="bg-white flex flex-col lg:h-full lg:py-0 md:py-10 px-10 py-4 justify-center gap-2 w-[500px]"
+>
+  <!-- Loading Spinner  -->
+  @if (isLoading) {
+    <div class="flex flex-col items-center justify-center">
+      <img src="/loading.svg" width="200px" height="200px" alt="" />
+      <div class="text-center mt-2 space-y-1">
+        <p class="text-3xl font-bold">Logging you in...</p>
+        <p class="text-xl font-medium text-gray-500">
+          Kindly wait as we are curating the data accordingly.
+        </p>
+      </div>
+    </div>
+  } @else {
+    <!-- show Go Back button on second stage  -->
+    @if (!firstStep) {
+      <button
+        (click)="toggleStep()"
+        class="flex text-primary mb-1 text-lg items-center gap-1 font-medium hover:bg-primary/10 w-fit px-3 py-2 rounded-xl transition-all duration-200"
+      >
+        <img src="/back.svg" alt="" />
+        <span>Go Back</span>
+      </button>
+    }
+
+    <!-- Heading and progress steps -->
+    <div class="max-w-96 mb-4">
+      <h2 class="text-2xl font-bold">Create Account</h2>
+      <div class="w-full flex gap-2 mt-2">
+        <div class="bg-primary rounded-full w-full h-1.5"></div>
+        <div
+          [ngClass]="firstStep ? 'bg-gray-300' : 'bg-primary'"
+          class="rounded-full w-full h-1.5"
+        ></div>
+      </div>
+    </div>
+
+    <!-- First Stop of signup form -->
+    @if (firstStep) {
+      <form class="space-y-5 w-full max-w-96" [formGroup]="signupForm">
+        <!-- Email -->
+        <div class="flex flex-col gap-1">
+          <label for="email" class="text-primary font-bold"
+            >Enter Email ID</label
+          >
+          <input
+            class="outline-none bg-secondaryLight/80 font-medium placeholder:text-gray-400 px-4 py-2 rounded-2xl"
+            type="email"
+            formControlName="email"
+            name="email"
+            value=""
+            placeholder="example@email.com"
+          />
+          @if (getErrorMessage("email")) {
+            <div class="text-red-500 font-semibold text-sm pl-2">
+              {{ getErrorMessage("email") }}
+            </div>
+          }
+        </div>
+
+        <!-- Full Name -->
+        <div class="flex flex-col gap-1">
+          <label for="fullName" class="text-primary font-bold"
+            >Enter Full Name</label
+          >
+          <input
+            class="outline-none bg-secondaryLight/80 font-medium placeholder:text-gray-400 px-4 py-2 rounded-2xl"
+            type="text"
+            name="fullName"
+            formControlName="fullName"
+            value=""
+            placeholder="Full Name"
+          />
+          @if (getErrorMessage("fullName")) {
+            <div class="text-red-500 font-semibold text-sm pl-2">
+              {{ getErrorMessage("fullName") }}
+            </div>
+          }
+        </div>
+
+        <!-- Passowrd -->
+        <div class="flex flex-col gap-1">
+          <label for="password" class="text-primary font-bold"
+            >Enter Password</label
+          >
+          <input
+            class="outline-none bg-secondaryLight/80 font-medium placeholder:text-gray-400 px-4 py-2 rounded-2xl"
+            type="password"
+            name="password"
+            formControlName="password"
+            value=""
+            placeholder="Password"
+          />
+          @if (getErrorMessage("password")) {
+            <div class="text-red-500 font-semibold text-sm pl-2">
+              {{ getErrorMessage("password") }}
+            </div>
+          }
+        </div>
+
+        <!-- Login page link -->
+        <div>
+          <p class="text-sm space-x-1 mb-2">
+            <span>Already have an account?</span>
+            <a routerLink="/login" class="text-primary font-bold">Log In</a>
+          </p>
+          <button
+            type="button"
+            [disabled]="!isFirstStepValid()"
+            (click)="toggleStep()"
+            class="bg-primary w-full py-2 text-center rounded-2xl text-white font-bold hover:bg-primary/70 duration-300 transition-all disabled:opacity-40 disabled:bg-primary disabled:cursor-not-allowed"
+          >
+            Next
+          </button>
+        </div>
+      </form>
+    }
+    <!-- Step two of Signup Page -->
+    @else {
+      <form class="space-y-5 w-full max-w-96" [formGroup]="signupForm">
+        <!-- Select an organization by name -->
+        <div class="flex flex-col gap-1">
+          <label for="organizationName" class="text-primary font-bold"
+            >Organization Name</label
+          >
+          <ng-select
+            formControlName="organizationId"
+            placeholder="Select Organization"
+          >
+            @for (organization of organizations; track organization.id) {
+              <ng-option [value]="organization.id" class="bg-white">{{
+                organization.name
+              }}</ng-option>
+            }
+          </ng-select>
+        </div>
+
+        <!-- Designation -->
+        <div class="flex flex-col gap-1">
+          <label for="designation" class="text-primary font-bold"
+            >Designation</label
+          >
+          <input
+            class="outline-none bg-secondaryLight/80 font-medium placeholder:text-gray-400 px-4 py-2 rounded-2xl"
+            type="text"
+            name="designation"
+            formControlName="designation"
+            value=""
+            placeholder="Designation"
+          />
+          @if (getErrorMessage("designation")) {
+            <div class="text-red-500 font-semibold text-sm pl-2">
+              {{ getErrorMessage("designation") }}
+            </div>
+          }
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="flex flex-col gap-1">
+          <label for="" class="text-primary font-bold">Birth Date</label>
+          <input
+            class="outline-none appearance-none bg-secondaryLight/80 placeholder-gray-400 font-medium px-4 py-2 rounded-2xl"
+            [ngClass]="
+              signupForm.controls.dob.invalid ? 'text-gray-400' : 'text-black'
+            "
+            type="date"
+            name="dob"
+            formControlName="dob"
+            value=""
+          />
+          @if (getErrorMessage("dob")) {
+            <div class="text-red-500 font-semibold text-sm pl-2">
+              {{ getErrorMessage("dob") }}
+            </div>
+          }
+        </div>
+        <!-- Address Info -->
+        <div class="flex gap-1 w-full">
+          <!-- City Name -->
+          <div class="flex flex-col gap-1">
+            <label for="" class="text-primary font-bold">City</label>
+            <input
+              class="outline-none bg-secondaryLight/80 font-medium placeholder:text-gray-400 px-4 py-2 rounded-2xl w-full"
+              type="text"
+              name="city"
+              formControlName="city"
+              placeholder="Enter City"
+              value=""
+            />
+            @if (getErrorMessage("city")) {
+              <div class="text-red-500 font-semibold text-sm pl-2">
+                {{ getErrorMessage("city") }}
+              </div>
+            }
+          </div>
+          <!-- Pin Code -->
+          <div class="flex flex-col gap-1">
+            <label for="" class="text-primary font-bold">Pin Code</label>
+            <input
+              class="outline-none bg-secondaryLight/80 font-medium placeholder:text-gray-400 px-4 py-2 rounded-2xl w-full"
+              type="text"
+              name="pinCode"
+              formControlName="pinCode"
+              placeholder="Enter Pin Code"
+              value=""
+            />
+            @if (getErrorMessage("pinCode")) {
+              <div class="text-red-500 font-semibold text-sm pl-2">
+                {{ getErrorMessage("pinCode") }}
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Signup Button -->
+        <button
+          type="submit"
+          [disabled]="signupForm.invalid"
+          (click)="$event.preventDefault(); handleSumbit()"
+          class="bg-primary w-full py-2 text-center rounded-2xl text-white font-bold hover:bg-primary/70 duration-300 transition-all disabled:opacity-40 disabled:bg-primary disabled:cursor-not-allowed"
+        >
+          Create
+        </button>
+      </form>
+    }
+  }
+</div>

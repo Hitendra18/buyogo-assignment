@@ -1,0 +1,72 @@
+<div
+  class="bg-white flex flex-col lg:h-full md:h-auto md:py-8 lg:py-0 px-10 justify-center gap-6 w-[500px]"
+>
+  <div class="container mx-auto p-8">
+    <!-- Personal Details Section -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-8">
+      <h2 class="text-xl font-semibold mb-4 text-gray-800">Personal Details</h2>
+      <div class="grid grid-cols-2 gap-6">
+        <!-- Full Name -->
+        <div>
+          <label class="block font-medium text-gray-600">Full Name:</label>
+          <p class="text-gray-900">{{ user.fullName }}</p>
+        </div>
+
+        <!-- Date of Birth -->
+        <div>
+          <label class="block font-medium text-gray-600">Date of Birth:</label>
+          <p class="text-gray-900">{{ user.dob }}</p>
+        </div>
+
+        <!-- City -->
+        <div>
+          <label class="block font-medium text-gray-600">City:</label>
+          <p class="text-gray-900">{{ user.city }}</p>
+        </div>
+
+        <!-- Pincode -->
+        <div>
+          <label class="block font-medium text-gray-600">Pincode:</label>
+          <p class="text-gray-900">{{ user.pincode }}</p>
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label class="block font-medium text-gray-600">Email:</label>
+          <p class="text-gray-900">{{ user.email }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Organization Details Section -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h2 class="text-xl font-semibold mb-4 text-gray-800">
+        Organization Details
+      </h2>
+      <div class="grid grid-cols-2 gap-6">
+        <!-- Organization ID -->
+        <div>
+          <label class="block font-medium text-gray-600"
+            >Organization ID:</label
+          >
+          <p class="text-gray-900">{{ user.organizationId }}</p>
+        </div>
+
+        <!-- Designation -->
+        <div>
+          <label class="block font-medium text-gray-600">Designation:</label>
+          <p class="text-gray-900">{{ user.designation }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout button -->
+  <button
+    type="button"
+    (click)="handleLogout()"
+    class="bg-primary w-full py-2 text-center rounded-2xl text-white font-bold hover:bg-primary/70 duration-300 transition-all disabled:opacity-40 disabled:bg-primary disabled:cursor-not-allowed mb-4"
+  >
+    Logout
+  </button>
+</div>
