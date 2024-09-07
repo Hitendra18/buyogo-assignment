@@ -6,5 +6,5 @@ export interface User {
   designation: string;
   dob: string;
   city: string;
-  pincode: string;
+  pinCode: string;
 }

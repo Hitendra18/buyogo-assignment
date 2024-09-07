@@ -1,27 +1,37 @@
-# NgrxTrial
+# Buyogo Assignment
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.4.
+## Deployment
 
-## Development server
+[Vercel Deployment Link](https://buyogo-assignment-rust.vercel.app/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## **Features**
 
-## Code scaffolding
+### 1. **Login User**
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Users can log in using their email and password.
+- Both fields have validation in place, and error messages are displayed if the input is invalid.
 
-## Build
+### 2. **Signup User**
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Users can create an account in a **two-step** signup process.
+- Navigation between the two steps is possible, and all form states persist as the user moves back and forth.
+- Input validation and error messages are implemented for both steps.
+- The **Organization Name** field includes a searchable dropdown where users can search and select from a list of organizations fetched from an API.
 
-## Running unit tests
+### 3. **Home Page**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Once logged in, users are redirected to the home page where their personal details are displayed (except for sensitive information like the password).
 
-## Running end-to-end tests
+### 4. **Route Guard**
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **Login** and **Signup** routes are accessible only to users who are **logged out**.
+- The **Home Page** is accessible only to users who are **logged in**.
+- The route guard ensures secure navigation based on the user’s authentication status.
 
-## Further help
+## Run Locally
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+To run locally follow these 3 simple steps:
+
+1. Clone this repository
+2. run `npm install`
+3. run `ng serve`
