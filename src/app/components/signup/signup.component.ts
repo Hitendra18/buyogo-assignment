@@ -67,6 +67,12 @@ export class SignupComponent implements OnInit {
       next: (data) => {
         this.organizations = data;
       },
+      error: () => {
+        this.toastr.error(
+          `Couldn't fetch organizations data, please refresh!`,
+          'Error',
+        );
+      },
     });
   }
 
