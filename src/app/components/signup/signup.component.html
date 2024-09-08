@@ -134,6 +134,11 @@
               }}</ng-option>
             }
           </ng-select>
+          @if (getErrorMessage("organizationId")) {
+            <div class="text-red-500 font-semibold text-sm pl-2">
+              Organization Name is required
+            </div>
+          }
         </div>
 
         <!-- Designation -->

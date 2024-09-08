@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../../models/user';
 import { JsonPipe } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -12,12 +13,16 @@ import { JsonPipe } from '@angular/common';
 })
 export class HomeComponent implements OnInit {
   user!: User;
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private toastr: ToastrService,
+  ) {}
 
   // Logout functionality
   handleLogout() {
     localStorage.clear();
     this.router.navigate(['/login']);
+    this.toastr.success('Successfully logged out!');
   }
 
   // Checks if user is already logged in

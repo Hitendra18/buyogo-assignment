@@ -8,6 +8,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { User } from '../../models/user';
+import { ToastrService } from 'ngx-toastr';
 
 // Reusable function for required fields with a minimum length
 const requiredWithMinLength = (min: number) => [
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private toastr: ToastrService,
     private dataService: DataService,
   ) {}
 
@@ -71,9 +73,14 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('user', JSON.stringify(data[0]));
             this.isLoading = false;
             this.router.navigate(['/home']);
+            this.toastr.success('Successfully logged in!');
           },
           error: () => {
             this.isLoading = false;
+            this.toastr.error(
+              'Something went wrong, please try again!',
+              'Error',
+            );
           },
         });
     }

@@ -17,6 +17,7 @@ import {
 } from '@ng-select/ng-select';
 import { Router, RouterLink } from '@angular/router';
 import { User } from '../../models/user';
+import { ToastrService } from 'ngx-toastr';
 
 // function for required fields with a minimum length
 const requiredWithMinLength = (min: number) => [
@@ -48,6 +49,7 @@ export class SignupComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private router: Router,
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit(): void {
@@ -103,9 +105,11 @@ export class SignupComponent implements OnInit {
         localStorage.setItem('user', JSON.stringify(data));
         this.isLoading = false;
         this.router.navigate(['/home']);
+        this.toastr.success('Successfully logged in!');
       },
       error: () => {
         this.isLoading = false;
+        this.toastr.error('Something went wrong, please try again!', 'Error');
       },
     });
   }
